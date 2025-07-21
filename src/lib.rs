@@ -77,3 +77,6 @@ pub fn pause() {
 pub fn pause_prompt(p: &str) {
 	prompt_str(p);
 }
+
+pub fn paws() { pause() }
+pub fn maws(p: &str) { pause_prompt(p) }
