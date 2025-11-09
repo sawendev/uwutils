@@ -1,5 +1,7 @@
 // UwUTils - Helper functions for getting user input
 
+pub mod slut;
+
 use std::io::{self, Write};
 
 pub fn input_str() -> String {
