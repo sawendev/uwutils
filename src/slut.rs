@@ -50,3 +50,7 @@ pub fn take_slice<'a>(bytes: &mut &'a [u8], len: usize) -> Option<&'a [u8]> {
 		l
 	})
 }
+
+pub fn take_str<'a>(bytes: &mut &'a [u8], len: usize) -> Option<&'a str> {
+	take_slice(bytes, len).and_then(|s| str::from_utf8(s).ok())
+}
