@@ -54,7 +54,7 @@ impl<'a> Slut<'a> {
 	}
 	
 	pub fn take_arr<const N: usize>(&mut self) -> Option<[u8; N]> {
-		self.take_slice(N).map(|s| s.try_into().unwrap())
+		self.take_slice(N)?.try_into().ok()
 	}
 	
 	pub fn take_slice(&mut self, len: usize) -> Option<&'a [u8]> {
