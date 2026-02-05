@@ -36,7 +36,7 @@ impl<'a> Slut<'a> {
 		self.take(u8::from_le_bytes)
 	}
 	
-	pub fn peek_u8(&mut self) -> Option<u8> {
+	pub fn peek_u8(&self) -> Option<u8> {
 		self.peek(u8::from_le_bytes)
 	}
 	
@@ -44,7 +44,7 @@ impl<'a> Slut<'a> {
 		self.take(i8::from_le_bytes)
 	}
 	
-	pub fn peek_i8(&mut self) -> Option<i8> {
+	pub fn peek_i8(&self) -> Option<i8> {
 		self.peek(i8::from_le_bytes)
 	}
 	
@@ -52,7 +52,7 @@ impl<'a> Slut<'a> {
 		self.take(u16::from_le_bytes)
 	}
 	
-	pub fn peek_le_u16(&mut self) -> Option<u16> {
+	pub fn peek_le_u16(&self) -> Option<u16> {
 		self.peek(u16::from_le_bytes)
 	}
 	
@@ -60,7 +60,7 @@ impl<'a> Slut<'a> {
 		self.take(u16::from_be_bytes)
 	}
 	
-	pub fn peek_be_u16(&mut self) -> Option<u16> {
+	pub fn peek_be_u16(&self) -> Option<u16> {
 		self.peek(u16::from_be_bytes)
 	}
 	
@@ -68,7 +68,7 @@ impl<'a> Slut<'a> {
 		self.take(i16::from_le_bytes)
 	}
 	
-	pub fn peek_le_i16(&mut self) -> Option<i16> {
+	pub fn peek_le_i16(&self) -> Option<i16> {
 		self.peek(i16::from_le_bytes)
 	}
 	
@@ -76,7 +76,7 @@ impl<'a> Slut<'a> {
 		self.take(i16::from_be_bytes)
 	}
 	
-	pub fn peek_be_i16(&mut self) -> Option<i16> {
+	pub fn peek_be_i16(&self) -> Option<i16> {
 		self.peek(i16::from_be_bytes)
 	}
 	
@@ -84,7 +84,7 @@ impl<'a> Slut<'a> {
 		self.take(u32::from_le_bytes)
 	}
 	
-	pub fn peek_le_u32(&mut self) -> Option<u32> {
+	pub fn peek_le_u32(&self) -> Option<u32> {
 		self.peek(u32::from_le_bytes)
 	}
 	
@@ -92,7 +92,7 @@ impl<'a> Slut<'a> {
 		self.take(u32::from_be_bytes)
 	}
 	
-	pub fn peek_be_u32(&mut self) -> Option<u32> {
+	pub fn peek_be_u32(&self) -> Option<u32> {
 		self.peek(u32::from_be_bytes)
 	}
 	
@@ -100,7 +100,7 @@ impl<'a> Slut<'a> {
 		self.take(i32::from_le_bytes)
 	}
 	
-	pub fn peek_le_i32(&mut self) -> Option<i32> {
+	pub fn peek_le_i32(&self) -> Option<i32> {
 		self.peek(i32::from_le_bytes)
 	}
 	
@@ -108,7 +108,7 @@ impl<'a> Slut<'a> {
 		self.take(i32::from_be_bytes)
 	}
 	
-	pub fn peek_be_i32(&mut self) -> Option<i32> {
+	pub fn peek_be_i32(&self) -> Option<i32> {
 		self.peek(i32::from_be_bytes)
 	}
 	
@@ -116,7 +116,7 @@ impl<'a> Slut<'a> {
 		self.take(u64::from_le_bytes)
 	}
 	
-	pub fn peek_le_u64(&mut self) -> Option<u64> {
+	pub fn peek_le_u64(&self) -> Option<u64> {
 		self.peek(u64::from_le_bytes)
 	}
 	
@@ -124,7 +124,7 @@ impl<'a> Slut<'a> {
 		self.take(u64::from_be_bytes)
 	}
 	
-	pub fn peek_be_u64(&mut self) -> Option<u64> {
+	pub fn peek_be_u64(&self) -> Option<u64> {
 		self.peek(u64::from_be_bytes)
 	}
 	
@@ -132,7 +132,7 @@ impl<'a> Slut<'a> {
 		self.take(i64::from_le_bytes)
 	}
 	
-	pub fn peek_le_i64(&mut self) -> Option<i64> {
+	pub fn peek_le_i64(&self) -> Option<i64> {
 		self.peek(i64::from_le_bytes)
 	}
 	
@@ -140,7 +140,7 @@ impl<'a> Slut<'a> {
 		self.take(i64::from_be_bytes)
 	}
 	
-	pub fn peek_be_i64(&mut self) -> Option<i64> {
+	pub fn peek_be_i64(&self) -> Option<i64> {
 		self.peek(i64::from_be_bytes)
 	}
 	
@@ -148,7 +148,7 @@ impl<'a> Slut<'a> {
 		self.take(u128::from_le_bytes)
 	}
 	
-	pub fn peek_le_u128(&mut self) -> Option<u128> {
+	pub fn peek_le_u128(&self) -> Option<u128> {
 		self.peek(u128::from_le_bytes)
 	}
 	
@@ -156,7 +156,7 @@ impl<'a> Slut<'a> {
 		self.take(u128::from_be_bytes)
 	}
 	
-	pub fn peek_be_u128(&mut self) -> Option<u128> {
+	pub fn peek_be_u128(&self) -> Option<u128> {
 		self.peek(u128::from_be_bytes)
 	}
 	
@@ -164,7 +164,7 @@ impl<'a> Slut<'a> {
 		self.take(i128::from_le_bytes)
 	}
 	
-	pub fn peek_le_i128(&mut self) -> Option<i128> {
+	pub fn peek_le_i128(&self) -> Option<i128> {
 		self.peek(i128::from_le_bytes)
 	}
 	
@@ -172,7 +172,7 @@ impl<'a> Slut<'a> {
 		self.take(i128::from_be_bytes)
 	}
 	
-	pub fn peek_be_i128(&mut self) -> Option<i128> {
+	pub fn peek_be_i128(&self) -> Option<i128> {
 		self.peek(i128::from_be_bytes)
 	}
 	
