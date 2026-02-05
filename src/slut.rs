@@ -184,12 +184,28 @@ impl<'a> Slut<'a> {
 		self.peek(f32::from_le_bytes)
 	}
 	
+	pub fn take_be_f32(&mut self) -> Option<f32> {
+		self.take(f32::from_be_bytes)
+	}
+	
+	pub fn peek_be_f32(&self) -> Option<f32> {
+		self.peek(f32::from_be_bytes)
+	}
+	
 	pub fn take_le_f64(&mut self) -> Option<f64> {
 		self.take(f64::from_le_bytes)
 	}
 	
 	pub fn peek_le_f64(&self) -> Option<f64> {
 		self.peek(f64::from_le_bytes)
+	}
+	
+	pub fn take_be_f64(&mut self) -> Option<f64> {
+		self.take(f64::from_be_bytes)
+	}
+	
+	pub fn peek_be_f64(&self) -> Option<f64> {
+		self.peek(f64::from_be_bytes)
 	}
 	
 	pub fn take_arr<const N: usize>(&mut self) -> Option<[u8; N]> {
