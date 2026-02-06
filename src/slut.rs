@@ -1,5 +1,18 @@
 // SLice UTils - Helper functions for extracting data from byte slices
 
+macro_rules! sf {
+	($a:ident(mut $b:ident, $c:expr) -> $d:ty) => {
+		pub fn $a(&mut self) -> Option<$d> {
+			self.$b($c)
+		}
+	};
+	($a:ident($b:ident, $c:expr) -> $d:ty) => {
+		pub fn $a(&self) -> Option<$d> {
+			self.$b($c)
+		}
+	};
+}
+
 pub struct Slut<'a> {
 	bytes: &'a [u8]
 }
@@ -32,181 +45,56 @@ impl<'a> Slut<'a> {
 		self.peek_arr().map(|a| f(a))
 	}
 	
-	pub fn take_u8(&mut self) -> Option<u8> {
-		self.take(u8::from_le_bytes)
-	}
+	sf!(take_u8(mut take, u8::from_le_bytes) -> u8);
+	sf!(peek_u8(    peek, u8::from_le_bytes) -> u8);
+	sf!(take_i8(mut take, i8::from_le_bytes) -> i8);
+	sf!(peek_i8(    peek, i8::from_le_bytes) -> i8);
 	
-	pub fn peek_u8(&self) -> Option<u8> {
-		self.peek(u8::from_le_bytes)
-	}
+	sf!(take_le_u16(mut take, u16::from_le_bytes) -> u16);
+	sf!(peek_le_u16(    peek, u16::from_le_bytes) -> u16);
+	sf!(take_le_i16(mut take, i16::from_le_bytes) -> i16);
+	sf!(peek_le_i16(    peek, i16::from_le_bytes) -> i16);
+	sf!(take_be_u16(mut take, u16::from_be_bytes) -> u16);
+	sf!(peek_be_u16(    peek, u16::from_be_bytes) -> u16);
+	sf!(take_be_i16(mut take, i16::from_be_bytes) -> i16);
+	sf!(peek_be_i16(    peek, i16::from_be_bytes) -> i16);
 	
-	pub fn take_i8(&mut self) -> Option<i8> {
-		self.take(i8::from_le_bytes)
-	}
+	sf!(take_le_u32(mut take, u32::from_le_bytes) -> u32);
+	sf!(peek_le_u32(    peek, u32::from_le_bytes) -> u32);
+	sf!(take_le_i32(mut take, i32::from_le_bytes) -> i32);
+	sf!(peek_le_i32(    peek, i32::from_le_bytes) -> i32);
+	sf!(take_be_u32(mut take, u32::from_be_bytes) -> u32);
+	sf!(peek_be_u32(    peek, u32::from_be_bytes) -> u32);
+	sf!(take_be_i32(mut take, i32::from_be_bytes) -> i32);
+	sf!(peek_be_i32(    peek, i32::from_be_bytes) -> i32);
 	
-	pub fn peek_i8(&self) -> Option<i8> {
-		self.peek(i8::from_le_bytes)
-	}
+	sf!(take_le_u64(mut take, u64::from_le_bytes) -> u64);
+	sf!(peek_le_u64(    peek, u64::from_le_bytes) -> u64);
+	sf!(take_le_i64(mut take, i64::from_le_bytes) -> i64);
+	sf!(peek_le_i64(    peek, i64::from_le_bytes) -> i64);
+	sf!(take_be_u64(mut take, u64::from_be_bytes) -> u64);
+	sf!(peek_be_u64(    peek, u64::from_be_bytes) -> u64);
+	sf!(take_be_i64(mut take, i64::from_be_bytes) -> i64);
+	sf!(peek_be_i64(    peek, i64::from_be_bytes) -> i64);
 	
-	pub fn take_le_u16(&mut self) -> Option<u16> {
-		self.take(u16::from_le_bytes)
-	}
+	sf!(take_le_u128(mut take, u128::from_le_bytes) -> u128);
+	sf!(peek_le_u128(    peek, u128::from_le_bytes) -> u128);
+	sf!(take_le_i128(mut take, i128::from_le_bytes) -> i128);
+	sf!(peek_le_i128(    peek, i128::from_le_bytes) -> i128);
+	sf!(take_be_u128(mut take, u128::from_be_bytes) -> u128);
+	sf!(peek_be_u128(    peek, u128::from_be_bytes) -> u128);
+	sf!(take_be_i128(mut take, i128::from_be_bytes) -> i128);
+	sf!(peek_be_i128(    peek, i128::from_be_bytes) -> i128);
 	
-	pub fn peek_le_u16(&self) -> Option<u16> {
-		self.peek(u16::from_le_bytes)
-	}
+	sf!(take_le_f32(mut take, f32::from_le_bytes) -> f32);
+	sf!(peek_le_f32(    peek, f32::from_le_bytes) -> f32);
+	sf!(take_be_f32(mut take, f32::from_be_bytes) -> f32);
+	sf!(peek_be_f32(    peek, f32::from_be_bytes) -> f32);
 	
-	pub fn take_be_u16(&mut self) -> Option<u16> {
-		self.take(u16::from_be_bytes)
-	}
-	
-	pub fn peek_be_u16(&self) -> Option<u16> {
-		self.peek(u16::from_be_bytes)
-	}
-	
-	pub fn take_le_i16(&mut self) -> Option<i16> {
-		self.take(i16::from_le_bytes)
-	}
-	
-	pub fn peek_le_i16(&self) -> Option<i16> {
-		self.peek(i16::from_le_bytes)
-	}
-	
-	pub fn take_be_i16(&mut self) -> Option<i16> {
-		self.take(i16::from_be_bytes)
-	}
-	
-	pub fn peek_be_i16(&self) -> Option<i16> {
-		self.peek(i16::from_be_bytes)
-	}
-	
-	pub fn take_le_u32(&mut self) -> Option<u32> {
-		self.take(u32::from_le_bytes)
-	}
-	
-	pub fn peek_le_u32(&self) -> Option<u32> {
-		self.peek(u32::from_le_bytes)
-	}
-	
-	pub fn take_be_u32(&mut self) -> Option<u32> {
-		self.take(u32::from_be_bytes)
-	}
-	
-	pub fn peek_be_u32(&self) -> Option<u32> {
-		self.peek(u32::from_be_bytes)
-	}
-	
-	pub fn take_le_i32(&mut self) -> Option<i32> {
-		self.take(i32::from_le_bytes)
-	}
-	
-	pub fn peek_le_i32(&self) -> Option<i32> {
-		self.peek(i32::from_le_bytes)
-	}
-	
-	pub fn take_be_i32(&mut self) -> Option<i32> {
-		self.take(i32::from_be_bytes)
-	}
-	
-	pub fn peek_be_i32(&self) -> Option<i32> {
-		self.peek(i32::from_be_bytes)
-	}
-	
-	pub fn take_le_u64(&mut self) -> Option<u64> {
-		self.take(u64::from_le_bytes)
-	}
-	
-	pub fn peek_le_u64(&self) -> Option<u64> {
-		self.peek(u64::from_le_bytes)
-	}
-	
-	pub fn take_be_u64(&mut self) -> Option<u64> {
-		self.take(u64::from_be_bytes)
-	}
-	
-	pub fn peek_be_u64(&self) -> Option<u64> {
-		self.peek(u64::from_be_bytes)
-	}
-	
-	pub fn take_le_i64(&mut self) -> Option<i64> {
-		self.take(i64::from_le_bytes)
-	}
-	
-	pub fn peek_le_i64(&self) -> Option<i64> {
-		self.peek(i64::from_le_bytes)
-	}
-	
-	pub fn take_be_i64(&mut self) -> Option<i64> {
-		self.take(i64::from_be_bytes)
-	}
-	
-	pub fn peek_be_i64(&self) -> Option<i64> {
-		self.peek(i64::from_be_bytes)
-	}
-	
-	pub fn take_le_u128(&mut self) -> Option<u128> {
-		self.take(u128::from_le_bytes)
-	}
-	
-	pub fn peek_le_u128(&self) -> Option<u128> {
-		self.peek(u128::from_le_bytes)
-	}
-	
-	pub fn take_be_u128(&mut self) -> Option<u128> {
-		self.take(u128::from_be_bytes)
-	}
-	
-	pub fn peek_be_u128(&self) -> Option<u128> {
-		self.peek(u128::from_be_bytes)
-	}
-	
-	pub fn take_le_i128(&mut self) -> Option<i128> {
-		self.take(i128::from_le_bytes)
-	}
-	
-	pub fn peek_le_i128(&self) -> Option<i128> {
-		self.peek(i128::from_le_bytes)
-	}
-	
-	pub fn take_be_i128(&mut self) -> Option<i128> {
-		self.take(i128::from_be_bytes)
-	}
-	
-	pub fn peek_be_i128(&self) -> Option<i128> {
-		self.peek(i128::from_be_bytes)
-	}
-	
-	pub fn take_le_f32(&mut self) -> Option<f32> {
-		self.take(f32::from_le_bytes)
-	}
-	
-	pub fn peek_le_f32(&self) -> Option<f32> {
-		self.peek(f32::from_le_bytes)
-	}
-	
-	pub fn take_be_f32(&mut self) -> Option<f32> {
-		self.take(f32::from_be_bytes)
-	}
-	
-	pub fn peek_be_f32(&self) -> Option<f32> {
-		self.peek(f32::from_be_bytes)
-	}
-	
-	pub fn take_le_f64(&mut self) -> Option<f64> {
-		self.take(f64::from_le_bytes)
-	}
-	
-	pub fn peek_le_f64(&self) -> Option<f64> {
-		self.peek(f64::from_le_bytes)
-	}
-	
-	pub fn take_be_f64(&mut self) -> Option<f64> {
-		self.take(f64::from_be_bytes)
-	}
-	
-	pub fn peek_be_f64(&self) -> Option<f64> {
-		self.peek(f64::from_be_bytes)
-	}
+	sf!(take_le_f64(mut take, f64::from_le_bytes) -> f64);
+	sf!(peek_le_f64(    peek, f64::from_le_bytes) -> f64);
+	sf!(take_be_f64(mut take, f64::from_be_bytes) -> f64);
+	sf!(peek_be_f64(    peek, f64::from_be_bytes) -> f64);
 	
 	pub fn take_arr<const N: usize>(&mut self) -> Option<[u8; N]> {
 		self.take_slice(N)?.try_into().ok()
