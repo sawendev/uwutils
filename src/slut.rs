@@ -1,4 +1,4 @@
-// SLice UTils - Helper functions for extracting data from byte slices
+// Helper functions for extracting data from byte slices
 
 macro_rules! sf {
 	($a:ident(mut $b:ident, $c:expr) -> $d:ty) => {
