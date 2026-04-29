@@ -10,6 +10,8 @@ impl<'a> BinReader<'a> {
 		Self { src, idx: 0 }
 	}
 	
+	pub fn len(&self) -> usize { self.src.len() - self.idx }
+	
 	pub fn take_u8(&mut self) -> Option<u8> { self.take(u8::from_le_bytes) }
 	pub fn take_i8(&mut self) -> Option<i8> { self.take(i8::from_le_bytes) }
 	pub fn take_le_u16(&mut self) -> Option<u16> { self.take(u16::from_le_bytes) }
@@ -121,6 +123,7 @@ impl BinBuilder {
 		Self { bin: Vec::new() }
 	}
 	
+	pub fn len(&self) -> usize { self.bin.len() }
 	pub fn build(self) -> Vec<u8> { self.bin }
 	
 	pub fn push_u8(&mut self, data: u8) { self.push(data, u8::to_le_bytes) }
