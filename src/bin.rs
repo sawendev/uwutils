@@ -63,4 +63,51 @@ impl<'a> BinReader<'a> {
 		self.idx += slice.len();
 		slice
 	}
+	
+	pub fn peek_u8(&self) -> Option<u8> { self.peek(u8::from_le_bytes) }
+	pub fn peek_i8(&self) -> Option<i8> { self.peek(i8::from_le_bytes) }
+	pub fn peek_le_u16(&self) -> Option<u16> { self.peek(u16::from_le_bytes) }
+	pub fn peek_le_i16(&self) -> Option<i16> { self.peek(i16::from_le_bytes) }
+	pub fn peek_be_u16(&self) -> Option<u16> { self.peek(u16::from_be_bytes) }
+	pub fn peek_be_i16(&self) -> Option<i16> { self.peek(i16::from_be_bytes) }
+	pub fn peek_le_u32(&self) -> Option<u32> { self.peek(u32::from_le_bytes) }
+	pub fn peek_le_i32(&self) -> Option<i32> { self.peek(i32::from_le_bytes) }
+	pub fn peek_be_u32(&self) -> Option<u32> { self.peek(u32::from_be_bytes) }
+	pub fn peek_be_i32(&self) -> Option<i32> { self.peek(i32::from_be_bytes) }
+	pub fn peek_le_u64(&self) -> Option<u64> { self.peek(u64::from_le_bytes) }
+	pub fn peek_le_i64(&self) -> Option<i64> { self.peek(i64::from_le_bytes) }
+	pub fn peek_be_u64(&self) -> Option<u64> { self.peek(u64::from_be_bytes) }
+	pub fn peek_be_i64(&self) -> Option<i64> { self.peek(i64::from_be_bytes) }
+	pub fn peek_le_u128(&self) -> Option<u128> { self.peek(u128::from_le_bytes) }
+	pub fn peek_le_i128(&self) -> Option<i128> { self.peek(i128::from_le_bytes) }
+	pub fn peek_be_u128(&self) -> Option<u128> { self.peek(u128::from_be_bytes) }
+	pub fn peek_be_i128(&self) -> Option<i128> { self.peek(i128::from_be_bytes) }
+	pub fn peek_le_f32(&self) -> Option<f32> { self.peek(f32::from_le_bytes) }
+	pub fn peek_be_f32(&self) -> Option<f32> { self.peek(f32::from_be_bytes) }
+	pub fn peek_le_f64(&self) -> Option<f64> { self.peek(f64::from_le_bytes) }
+	pub fn peek_be_f64(&self) -> Option<f64> { self.peek(f64::from_be_bytes) }
+	
+	pub fn peek<const LEN: usize, T>(&self, f: fn([u8; LEN]) -> T) -> Option<T> {
+		self.peek_arr().map(|a| f(a))
+	}
+	
+	pub fn peek_arr<const LEN: usize>(&self) -> Option<[u8; LEN]> {
+		self.peek_slice(LEN).map(|s| s.try_into().unwrap())
+	}
+	
+	pub fn peek_str(&self, len: usize) -> Option<&str> {
+		str::from_utf8(self.peek_slice(len)?).ok()
+	}
+	
+	pub fn peek_slice(&self, len: usize) -> Option<&[u8]> {
+		(self.idx + len <= self.src.len()).then(|| {
+			let slice = &self.src[self.idx..(self.idx + len)];
+			slice
+		})
+	}
+	
+	pub fn peek_rest(&self) -> &[u8] {
+		let slice = &self.src[self.idx..];
+		slice
+	}
 }
