@@ -43,7 +43,7 @@ impl<'a> BinReader<'a> {
 		self.take_slice(LEN).map(|s| s.try_into().unwrap())
 	}
 	
-	pub fn take_str(&mut self, len: usize) -> Option<&str> {
+	pub fn take_str(&mut self, len: usize) -> Option<&'a str> {
 		(self.idx + len <= self.src.len()).then(|| {
 			let slice = &self.src[self.idx..(self.idx + len)];
 			let utf8 = str::from_utf8(slice).ok()?;
@@ -52,7 +52,7 @@ impl<'a> BinReader<'a> {
 		}).flatten()
 	}
 	
-	pub fn take_slice(&mut self, len: usize) -> Option<&[u8]> {
+	pub fn take_slice(&mut self, len: usize) -> Option<&'a [u8]> {
 		(self.idx + len <= self.src.len()).then(|| {
 			let slice = &self.src[self.idx..(self.idx + len)];
 			self.idx += len;
@@ -60,7 +60,7 @@ impl<'a> BinReader<'a> {
 		})
 	}
 	
-	pub fn take_rest(&mut self) -> &[u8] {
+	pub fn take_rest(&mut self) -> &'a [u8] {
 		let slice = &self.src[self.idx..];
 		self.idx += slice.len();
 		slice
@@ -97,18 +97,18 @@ impl<'a> BinReader<'a> {
 		self.peek_slice(LEN).map(|s| s.try_into().unwrap())
 	}
 	
-	pub fn peek_str(&self, len: usize) -> Option<&str> {
+	pub fn peek_str(&self, len: usize) -> Option<&'a str> {
 		str::from_utf8(self.peek_slice(len)?).ok()
 	}
 	
-	pub fn peek_slice(&self, len: usize) -> Option<&[u8]> {
+	pub fn peek_slice(&self, len: usize) -> Option<&'a [u8]> {
 		(self.idx + len <= self.src.len()).then(|| {
 			let slice = &self.src[self.idx..(self.idx + len)];
 			slice
 		})
 	}
 	
-	pub fn peek_rest(&self) -> &[u8] {
+	pub fn peek_rest(&self) -> &'a [u8] {
 		let slice = &self.src[self.idx..];
 		slice
 	}
