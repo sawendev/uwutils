@@ -22,3 +22,11 @@ pub fn input<T: std::str::FromStr>() -> Result<T, T::Err> {
 pub fn prompt<T: std::str::FromStr>(p: &str) -> Result<T, T::Err> {
 	prompt_str(p).parse()
 }
+
+pub fn input_with<T>(f: fn(&str) -> T) -> T {
+	f(&input_str())
+}
+
+pub fn prompt_with<T>(p: &str, f: fn(&str) -> T) -> T {
+	f(&prompt_str(p))
+}
