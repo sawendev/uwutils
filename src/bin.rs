@@ -160,4 +160,6 @@ impl BinBuilder {
 	pub fn push_slice(&mut self, data: &[u8]) {
 		self.bin.extend_from_slice(data);
 	}
+	
+	#[cfg(feature = "silly")] pub fn build_the_fucker(self) -> Vec<u8> { self.build() }
 }

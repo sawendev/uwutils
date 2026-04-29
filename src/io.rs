@@ -56,3 +56,7 @@ pub fn pause_prompt(p: &str) {
 	io::stdout().flush().unwrap();
 	pause();
 }
+
+#[cfg(feature = "silly")] pub fn paws() { pause() }
+#[cfg(feature = "silly")] pub fn paws_prompt(p: &str) { pause_prompt(p); }
+#[cfg(feature = "silly")] pub fn maws(p: &str) { pause_prompt(p); }
