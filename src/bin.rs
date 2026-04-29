@@ -57,4 +57,10 @@ impl<'a> BinReader<'a> {
 			slice
 		})
 	}
+	
+	pub fn take_rest(&mut self) -> &[u8] {
+		let slice = &self.src[self.idx..];
+		self.idx += slice.len();
+		slice
+	}
 }
