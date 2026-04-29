@@ -111,3 +111,51 @@ impl<'a> BinReader<'a> {
 		slice
 	}
 }
+
+pub struct BinBuilder {
+	bin: Vec<u8>,
+}
+
+impl BinBuilder {
+	pub fn new() -> Self {
+		Self { bin: Vec::new() }
+	}
+	
+	pub fn push_u8(&mut self, data: u8) { self.push(data, u8::to_le_bytes) }
+	pub fn push_le_u16(&mut self, data: u16) { self.push(data, u16::to_le_bytes) }
+	pub fn push_le_i16(&mut self, data: i16) { self.push(data, i16::to_le_bytes) }
+	pub fn push_be_u16(&mut self, data: u16) { self.push(data, u16::to_be_bytes) }
+	pub fn push_be_i16(&mut self, data: i16) { self.push(data, i16::to_be_bytes) }
+	pub fn push_le_u32(&mut self, data: u32) { self.push(data, u32::to_le_bytes) }
+	pub fn push_le_i32(&mut self, data: i32) { self.push(data, i32::to_le_bytes) }
+	pub fn push_be_u32(&mut self, data: u32) { self.push(data, u32::to_be_bytes) }
+	pub fn push_be_i32(&mut self, data: i32) { self.push(data, i32::to_be_bytes) }
+	pub fn push_le_u64(&mut self, data: u64) { self.push(data, u64::to_le_bytes) }
+	pub fn push_le_i64(&mut self, data: i64) { self.push(data, i64::to_le_bytes) }
+	pub fn push_be_u64(&mut self, data: u64) { self.push(data, u64::to_be_bytes) }
+	pub fn push_be_i64(&mut self, data: i64) { self.push(data, i64::to_be_bytes) }
+	pub fn push_le_u128(&mut self, data: u128) { self.push(data, u128::to_le_bytes) }
+	pub fn push_le_i128(&mut self, data: i128) { self.push(data, i128::to_le_bytes) }
+	pub fn push_be_u128(&mut self, data: u128) { self.push(data, u128::to_be_bytes) }
+	pub fn push_be_i128(&mut self, data: i128) { self.push(data, i128::to_be_bytes) }
+	pub fn push_le_f32(&mut self, data: f32) { self.push(data, f32::to_le_bytes) }
+	pub fn push_be_f32(&mut self, data: f32) { self.push(data, f32::to_be_bytes) }
+	pub fn push_le_f64(&mut self, data: f64) { self.push(data, f64::to_le_bytes) }
+	pub fn push_be_f64(&mut self, data: f64) { self.push(data, f64::to_be_bytes) }
+	
+	pub fn push<T, const LEN: usize>(&mut self, data: T, f: fn(T) -> [u8; LEN]) {
+		self.push_arr(f(data))
+	}
+	
+	pub fn push_arr<const LEN: usize>(&mut self, data: [u8; LEN]) {
+		self.bin.extend(data);
+	}
+	
+	pub fn push_str(&mut self, data: &str) {
+		self.push_slice(data.as_bytes())
+	}
+	
+	pub fn push_slice(&mut self, data: &[u8]) {
+		self.bin.extend_from_slice(data);
+	}
+}
