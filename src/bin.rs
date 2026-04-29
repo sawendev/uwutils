@@ -33,7 +33,7 @@ impl<'a> BinReader<'a> {
 	pub fn take_le_f64(&mut self) -> Option<f64> { self.take(f64::from_le_bytes) }
 	pub fn take_be_f64(&mut self) -> Option<f64> { self.take(f64::from_be_bytes) }
 	
-	pub fn take<const LEN: usize, T>(&mut self, f: fn([u8; LEN]) -> T) -> Option<T> {
+	pub fn take<const LEN: usize, T>(&mut self, f: impl FnOnce([u8; LEN]) -> T) -> Option<T> {
 		self.take_arr().map(|a| f(a))
 	}
 	
@@ -87,7 +87,7 @@ impl<'a> BinReader<'a> {
 	pub fn peek_le_f64(&self) -> Option<f64> { self.peek(f64::from_le_bytes) }
 	pub fn peek_be_f64(&self) -> Option<f64> { self.peek(f64::from_be_bytes) }
 	
-	pub fn peek<const LEN: usize, T>(&self, f: fn([u8; LEN]) -> T) -> Option<T> {
+	pub fn peek<const LEN: usize, T>(&self, f: impl FnOnce([u8; LEN]) -> T) -> Option<T> {
 		self.peek_arr().map(|a| f(a))
 	}
 	
@@ -145,7 +145,7 @@ impl BinBuilder {
 	pub fn push_le_f64(&mut self, data: f64) { self.push(data, f64::to_le_bytes) }
 	pub fn push_be_f64(&mut self, data: f64) { self.push(data, f64::to_be_bytes) }
 	
-	pub fn push<T, const LEN: usize>(&mut self, data: T, f: fn(T) -> [u8; LEN]) {
+	pub fn push<T, const LEN: usize>(&mut self, data: T, f: impl FnOnce(T) -> [u8; LEN]) {
 		self.push_arr(f(data))
 	}
 	
