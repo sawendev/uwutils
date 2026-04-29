@@ -30,3 +30,13 @@ pub fn input_with<T>(f: fn(&str) -> T) -> T {
 pub fn prompt_with<T>(p: &str, f: fn(&str) -> T) -> T {
 	f(&prompt_str(p))
 }
+
+pub fn pause() {
+	io::stdin().read_line(&mut String::new()).unwrap();
+}
+
+pub fn pause_prompt(p: &str) {
+	print!("{p}");
+	io::stdout().flush().unwrap();
+	pause();
+}
