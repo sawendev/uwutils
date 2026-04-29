@@ -121,6 +121,8 @@ impl BinBuilder {
 		Self { bin: Vec::new() }
 	}
 	
+	pub fn build(self) -> Vec<u8> { self.bin }
+	
 	pub fn push_u8(&mut self, data: u8) { self.push(data, u8::to_le_bytes) }
 	pub fn push_le_u16(&mut self, data: u16) { self.push(data, u16::to_le_bytes) }
 	pub fn push_le_i16(&mut self, data: i16) { self.push(data, i16::to_le_bytes) }
