@@ -23,6 +23,22 @@ pub fn prompt<T: std::str::FromStr>(p: &str) -> Result<T, T::Err> {
 	prompt_str(p).parse()
 }
 
+pub fn input_bool(default: bool) -> bool {
+	match input_str().chars().next() {
+		Some('y') | Some('Y') => true,
+		Some('n') | Some('N') => false,
+		_ => default,
+	}
+}
+
+pub fn prompt_bool(p: &str, default: bool) -> bool {
+	match prompt_str(p).chars().next() {
+		Some('y') | Some('Y') => true,
+		Some('n') | Some('N') => false,
+		_ => default,
+	}
+}
+
 pub fn input_with<T>(f: fn(&str) -> T) -> T {
 	f(&input_str())
 }
