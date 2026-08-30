@@ -35,8 +35,8 @@ pub const fn snailiness(input: &str) -> f64 {
 			}
 			if y - x >= 3 {
 				words += 1;
-				if (bytes[x] == b's' || bytes[x] == b'S')
-				&& (bytes[x+1] == b'n' || bytes[x+1] == b'N') {
+				if bytes[x].eq_ignore_ascii_case(&b's')
+				&& bytes[x+1].eq_ignore_ascii_case(&b'n') {
 					snaily_words += 1;
 				}
 			}
@@ -44,6 +44,17 @@ pub const fn snailiness(input: &str) -> f64 {
 		} else {
 			x += 1;
 		}
+	}
+	x = 0;
+	while x + 4 < bytes.len() {
+		if bytes[x].eq_ignore_ascii_case(&b's')
+		&& bytes[x+1].eq_ignore_ascii_case(&b'n')
+		&& bytes[x+2].eq_ignore_ascii_case(&b'a')
+		&& bytes[x+3].eq_ignore_ascii_case(&b'i')
+		&& bytes[x+4].eq_ignore_ascii_case(&b'l') {
+			snaily_words += 1;
+		}
+		x += 1;
 	}
 	
 	if words > 0 {
